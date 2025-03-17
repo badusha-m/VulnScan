@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerable Page</title>
+</head>
+<body>
+    <h1>Welcome to the Vulnerable Page</h1>
+    
+    <!-- XSS Vulnerability: User input is directly inserted without sanitization -->
+    <form action="" method="GET">
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Submit</button>
+    </form>
+    
+    <script>
+        // Retrieves user input from URL and injects it into the page (XSS Vulnerability)
+        const params = new URLSearchParams(window.location.search);
+        document.write("<p>Hello, " + params.get("name") + "!</p>");
+    </script>
+    
+    <!-- Insecure Form with No CSRF Protection -->
+    <form action="http://example.com/deleteAccount" method="POST">
+        <button type="submit">Delete My Account</button>
+    </form>
+</body>
+</html>
